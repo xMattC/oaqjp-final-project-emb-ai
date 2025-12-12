@@ -3,7 +3,7 @@ import json
 
 
 def emotion_detector(text_to_analyse):
-    """ Emotion Predict function using the Watson NLP Library
+    """ Emotion predict function using the Watson NLP Library
     """
 
     url = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
@@ -16,10 +16,11 @@ def emotion_detector(text_to_analyse):
 
     formatted_response = json.loads(response.text)
 
-    print(formatted_response['emotionPredictions']['text'])
-    output = {}
+    emotions = formatted_response['emotionPredictions'][0]['emotion']
 
-    return
+    emotions['dominant_emotion'] = max(emotions, key=emotions.get)
+
+    return emotions
 
     print(type(response.text))
     formatted_response = json.loads(response.text)
